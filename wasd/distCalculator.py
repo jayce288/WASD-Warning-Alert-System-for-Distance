@@ -8,7 +8,7 @@ l2 = 35.1524
 lo2 = 128.1029
 al2 = 1.0
 
-//두 gps데이터를 토대로 3차원 거리계산을 해준다.
+#두 gps데이터를 토대로 3차원 거리계산을 해준다.
 def distCalculator():
     a = abs(lo1 - lo2)
     b = abs(l1 - l2)
