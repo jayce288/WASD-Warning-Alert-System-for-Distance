@@ -25,13 +25,9 @@ void getgps(TinyGPS &gps){
   String str_latitude = String(latitude,5);
   String str_longitude = String(longitude,5);
   String str_altitude = String(altitude,5);
-  Serial.print(str_latitude +" "+  str_longitude+" "+str_altitude+"\n" );
-  xbee.print(str_latitude +" "+  str_longitude+" "+str_altitude+"\n" );
-
 }
 
 void loop(){
-  xbee.println("Hello WORLD");
   while(uart_gps.available()){
 
     int c = uart_gps.read();
