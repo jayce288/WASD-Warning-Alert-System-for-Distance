@@ -87,11 +87,11 @@ class secondwindow(QDialog,QWidget):
         label2.move(940, 750)
         label3 = QLabel("Red Limit:", self)
         label3.move(1770, 750)
-        self.label4 = QLabel(str(self.max_distance*0.7) + "m", self)
+        self.label4 = QLabel(str(self.max_distance * 0.7) + "m", self)
         self.label4.move(550, 750)
-        self.label5 = QLabel(str(self.max_distance*0.8) + "m", self)
+        self.label5 = QLabel(str(self.max_distance * 0.8) + "m", self)
         self.label5.move(1350, 750)
-        self.label6 = QLabel(str(self.max_distance*0.9) + "m", self)
+        self.label6 = QLabel(str(self.max_distance * 0.9) + "m", self)
         self.label6.move(2100, 750)
         label7 = QLabel("Latitude:", self)
         label7.move(250, 300)
@@ -175,11 +175,12 @@ class secondwindow(QDialog,QWidget):
         self.show()
 
     def GPS(self):
-        arduino = serial.Serial('COM4', 9600)
-
-        l1 = 35.15415
-        lo1 = 128.0929
-        al1 = 61.20000
+        l1 = 35.15408
+        lo1 = 128.09300
+        al1 = 1
+        l2 = 35.15408
+        lo2 = 128.09300
+        al2 = 1
 
         self.btn2.setText("STOP")
 
@@ -190,51 +191,40 @@ class secondwindow(QDialog,QWidget):
         self.label12.setText(str(al1))
         self.label12.repaint()
 
-        while (True):
-            if (arduino.readable()):
-                a = arduino.readline()
-                res = a.decode('utf-8')
+        for i in range(100):
+            time.sleep(0.5)
+            self.label14.setText(str(l2))
+            self.label14.repaint()
+            self.label16.setText(str(lo2))
+            self.label16.repaint()
+            self.label18.setText(str(al2))
+            self.label18.repaint()
 
-                print(res)
-                gps = res.split(" ")
+            a = abs(lo1 - lo2)
+            b = abs(l1 - l2)
+            c = abs(al1 - al2)
+            X = (math.cos(l1) * 6400 * 2 * math.pi / 360) * a
+            Y = 111 * b
+            C = X * X + Y * Y
+            D = math.sqrt(C) * 1000
+            E = D * D + c * c
+            F = math.sqrt(E)
+            G = f'{F:.3f}'
 
-                print("Latitude : " + gps[0] + " Longitude :" + gps[1] + " Altitude :" + gps[2] + "\n")
-                l2 = float(gps[0])
-                lo2 = float(gps[1])
-                al2 = float(61.20000)
+            self.label20.setText(str(G)+'m')
+            self.label20.repaint()
 
-                self.label14.setText(str(l2))
-                self.label14.repaint()
-                self.label16.setText(str(lo2))
-                self.label16.repaint()
-                self.label18.setText(str(al2))
-                self.label18.repaint()
+            if (F >= float(self.max_distance) * 0.7 and F < float(self.max_distance) * 0.8):
+                winsound.Beep(500, 1200)
+            elif (F >= float(self.max_distance) * 0.8 and F < float(self.max_distance) * 0.9):
+                winsound.Beep(500, 700)
+            elif (F >= float(self.max_distance) * 0.9 and F < float(self.max_distance)):
+                winsound.Beep(500, 500)
 
-                a = abs(lo1 - lo2)
-                b = abs(l1 - l2)
-                c = abs(al1 - al2)
-                X = (math.cos(l1) * 6400 * 2 * math.pi / 360) * a
-                Y = 111 * b
-                C = X * X + Y * Y
-                D = math.sqrt(C) * 1000
-                E = D * D + c * c
-                F = math.sqrt(E)
-                G = f'{F:.3f}'
+            l2 += 0.0001
+            lo2 += 0.0001
+            al2 += 0.1
 
-                self.label20.setText(str(G) + 'm')
-                self.label20.repaint()
-
-                if (F >= float(self.max_distance) * 0.7 and F < float(self.max_distance) * 0.8):
-                    winsound.Beep(500, 1200)
-                elif (F >= float(self.max_distance) * 0.8 and F < float(self.max_distance) * 0.9):
-                    winsound.Beep(500, 700)
-                elif (F >= float(self.max_distance) * 0.9 and F < float(self.max_distance)):
-                    winsound.Beep(500, 500)
-                elif(F > float(self.max_distance)):
-                    winsound.Beep(1000, 2000)
-
-
-                time.sleep(0.1)
 
 if __name__ == '__main__':
    app = QApplication(sys.argv)
