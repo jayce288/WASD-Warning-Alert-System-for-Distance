@@ -81,12 +81,12 @@ class secondwindow(QDialog,QWidget):
 
         self.max_distance = int(text)
 
-        label1 = QLabel("Green Limit:", self)
-        label1.move(160, 750)
-        label2 = QLabel("Yellow Limit:", self)
-        label2.move(940, 750)
-        label3 = QLabel("Red Limit:", self)
-        label3.move(1770, 750)
+        self.label1 = QLabel("Green Limit:", self)
+        self.label1.move(160, 750)
+        self.label2 = QLabel("Yellow Limit:", self)
+        self.label2.move(940, 750)
+        self.label3 = QLabel("Red Limit:", self)
+        self.label3.move(1770, 750)
         self.label4 = QLabel(str(self.max_distance * 0.7) + "m", self)
         self.label4.move(550, 750)
         self.label5 = QLabel(str(self.max_distance * 0.8) + "m", self)
@@ -127,17 +127,17 @@ class secondwindow(QDialog,QWidget):
         label22.move(1650, 180)
 
 
-        font1 = label1.font()
-        font2 = label1.font()
+        font1 = self.label1.font()
+        font2 = self.label1.font()
         font3 = label21.font()
         font1.setPointSize(25)
         font2.setPointSize(35)
         font3.setPointSize(40)
         font3.setFamily('Calibri Bold')
         font3.setBold(True)
-        label1.setFont(font1)
-        label2.setFont(font1)
-        label3.setFont(font1)
+        self.label1.setFont(font1)
+        self.label2.setFont(font1)
+        self.label3.setFont(font1)
         self.label4.setFont(font1)
         self.label5.setFont(font1)
         self.label6.setFont(font1)
@@ -191,8 +191,8 @@ class secondwindow(QDialog,QWidget):
         self.label12.setText(str(al1))
         self.label12.repaint()
 
-        for i in range(100):
-            time.sleep(0.5)
+        for i in range(50):
+            time.sleep(1)
             self.label14.setText(str(l2))
             self.label14.repaint()
             self.label16.setText(str(lo2))
@@ -215,16 +215,51 @@ class secondwindow(QDialog,QWidget):
             self.label20.repaint()
 
             if (F >= float(self.max_distance) * 0.7 and F < float(self.max_distance) * 0.8):
-                winsound.Beep(500, 1200)
+                winsound.Beep(300, 1000)
+                self.label1.setStyleSheet("color: green")
+                self.label2.setStyleSheet("color: black")
+                self.label3.setStyleSheet("color: black")
+                self.label4.setStyleSheet("color: green")
+                self.label5.setStyleSheet("color: black")
+                self.label6.setStyleSheet("color: black")
+                self.label1.repaint()
+                self.label2.repaint()
+                self.label3.repaint()
+                self.label4.repaint()
+                self.label5.repaint()
+                self.label6.repaint()
             elif (F >= float(self.max_distance) * 0.8 and F < float(self.max_distance) * 0.9):
-                winsound.Beep(500, 700)
+                winsound.Beep(500, 1000)
+                self.label1.setStyleSheet("color: black")
+                self.label2.setStyleSheet("color: yellow")
+                self.label3.setStyleSheet("color: black")
+                self.label4.setStyleSheet("color: black")
+                self.label5.setStyleSheet("color: yellow")
+                self.label6.setStyleSheet("color: black")
+                self.label1.repaint()
+                self.label2.repaint()
+                self.label3.repaint()
+                self.label4.repaint()
+                self.label5.repaint()
+                self.label6.repaint()
             elif (F >= float(self.max_distance) * 0.9 and F < float(self.max_distance)):
-                winsound.Beep(500, 500)
+                winsound.Beep(700, 1000)
+                self.label1.setStyleSheet("color: black")
+                self.label2.setStyleSheet("color: black")
+                self.label3.setStyleSheet("color: red")
+                self.label4.setStyleSheet("color: black")
+                self.label5.setStyleSheet("color: black")
+                self.label6.setStyleSheet("color: red")
+                self.label1.repaint()
+                self.label2.repaint()
+                self.label3.repaint()
+                self.label4.repaint()
+                self.label5.repaint()
+                self.label6.repaint()
 
             l2 += 0.0001
             lo2 += 0.0001
             al2 += 0.1
-
 
 if __name__ == '__main__':
    app = QApplication(sys.argv)

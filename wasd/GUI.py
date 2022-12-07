@@ -5,10 +5,8 @@ import winsound
 import time
 
 from PyQt5 import QtWidgets, QtWebEngineWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLabel, QPushButton, QLineEdit, QDialog, \
-    QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QLineEdit, QDialog
 from PyQt5.QtGui import QPixmap
-from PyQt5.uic.properties import QtGui
 
 text = float(0)
 class MyApp(QWidget):
@@ -126,7 +124,6 @@ class secondwindow(QDialog,QWidget):
         label22 = QLabel("VEHICLE", self)
         label22.move(1650, 180)
 
-
         font1 = label1.font()
         font2 = label1.font()
         font3 = label21.font()
@@ -225,13 +222,49 @@ class secondwindow(QDialog,QWidget):
                 self.label20.repaint()
 
                 if (F >= float(self.max_distance) * 0.7 and F < float(self.max_distance) * 0.8):
-                    winsound.Beep(500, 1200)
+                    winsound.Beep(300, 1000)
+                    self.label1.setStyleSheet("color: green")
+                    self.label2.setStyleSheet("color: black")
+                    self.label3.setStyleSheet("color: black")
+                    self.label4.setStyleSheet("color: green")
+                    self.label5.setStyleSheet("color: black")
+                    self.label6.setStyleSheet("color: black")
+                    self.label1.repaint()
+                    self.label2.repaint()
+                    self.label3.repaint()
+                    self.label4.repaint()
+                    self.label5.repaint()
+                    self.label6.repaint()
                 elif (F >= float(self.max_distance) * 0.8 and F < float(self.max_distance) * 0.9):
-                    winsound.Beep(500, 700)
+                    winsound.Beep(500, 1000)
+                    self.label1.setStyleSheet("color: black")
+                    self.label2.setStyleSheet("color: yellow")
+                    self.label3.setStyleSheet("color: black")
+                    self.label4.setStyleSheet("color: black")
+                    self.label5.setStyleSheet("color: yellow")
+                    self.label6.setStyleSheet("color: black")
+                    self.label1.repaint()
+                    self.label2.repaint()
+                    self.label3.repaint()
+                    self.label4.repaint()
+                    self.label5.repaint()
+                    self.label6.repaint()
                 elif (F >= float(self.max_distance) * 0.9 and F < float(self.max_distance)):
-                    winsound.Beep(500, 500)
+                    winsound.Beep(700, 1000)
+                    self.label1.setStyleSheet("color: black")
+                    self.label2.setStyleSheet("color: black")
+                    self.label3.setStyleSheet("color: red")
+                    self.label4.setStyleSheet("color: black")
+                    self.label5.setStyleSheet("color: black")
+                    self.label6.setStyleSheet("color: red")
+                    self.label1.repaint()
+                    self.label2.repaint()
+                    self.label3.repaint()
+                    self.label4.repaint()
+                    self.label5.repaint()
+                    self.label6.repaint()
                 elif(F > float(self.max_distance)):
-                    winsound.Beep(1000, 2000)
+                    winsound.Beep(1000, 1000)
 
 
                 time.sleep(0.1)
